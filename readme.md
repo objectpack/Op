@@ -5,7 +5,6 @@
 * [Install](#install)
 * [Conventions](#conventions)
 
-
 <a name="features"></a>
 ## Features :
 
