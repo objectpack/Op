@@ -1,0 +1,6 @@
+
+.project
+.cache
+.cache/*
+.settings
+.settings/*
