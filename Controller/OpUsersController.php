@@ -1,7 +1,7 @@
 <?php
 
-App::uses('OP.OPAppController', 'Controller');
+App::uses('Op.OpAppController', 'Controller');
 
-class OPUsersController extends OPAppController {
+class OpUsersController extends OpAppController {
 	
 }

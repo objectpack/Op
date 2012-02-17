@@ -1,12 +1,14 @@
 
 # Object Pack (OP)
 
+## Table of contents
+
 * [Features](#features)
 * [Install](#install)
 * [Conventions](#conventions)
 
 <a name="features"></a>
-## Features :
+## Features
 
 * TwitterBootstrap
 * Partials
@@ -16,10 +18,32 @@
 * Scaffolding
 
 <a name="install"></a>
-## Install :
+## Install
 
-1. Copy files
-2. Load plugin
+### Clone repository
+
+### Load plugin
+
+In your /Config/bootstrap.php add
+
+```php
+CakePlugin::load(array(
+	'Op' => array(
+		'bootstrap' => true,
+		'routes' => true
+	)
+));
+```
+
+### Add Op component
+
+In your /Controller/AppController.php add
+
+```php
+public $components = array(
+	'Op.Op'
+);
+```
 
 
 <a name="conventions"></a>
