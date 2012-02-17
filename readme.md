@@ -45,6 +45,7 @@ git submodule update
 In your /Config/bootstrap.php add :
 
 ```php
+<?php
 CakePlugin::load(array(
 	'Op' => array(
 		'bootstrap' => true,
@@ -58,9 +59,12 @@ CakePlugin::load(array(
 In your /Controller/AppController.php add :
 
 ```php
-public $components = array(
-	'Op.Op'
-);
+<?php
+class AppController extends Controller {
+	public $components = array(
+		'Op.Op'
+	);
+}
 ```
 
 <a name="conventions"></a>
