@@ -1,5 +1,5 @@
 
-# Object Pack
+# Object Pack (OP)
 
 * [Features](#features)
 * [Install](#install)
@@ -11,11 +11,16 @@
 * TwitterBootstrap
 * Partials
 * Uploads
-* Multiple languages
-* Admin
+* I18n
+* No ACL (prefix based auth)
+* Scaffolding
 
 <a name="install"></a>
 ## Install :
+
+1. Copy files
+2. Load plugin
+
 
 <a name="conventions"></a>
 ## Naming conventions :
