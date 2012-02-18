@@ -20,6 +20,7 @@ STILL IN HEAVY DEVELOPMENT
 * I18n
 * No ACL (prefix based auth)
 * TwitterBootstrap
+* Less.js framework
 * Partials
 
 <a name="install"></a>
@@ -52,6 +53,11 @@ CakePlugin::load(array(
 		'routes' => true
 	)
 ));
+```
+### Create schema
+
+```bash
+cake schema create Op.op
 ```
 
 ### Add Op component

@@ -13,6 +13,11 @@ class OpComponent extends Component {
 			'className' => 'Op.OpAuth'
 		)
 	);
+	
+/**
+ * List of components the must be manually initialized
+ */
+	protected $autoComponents = array();
 
 	
 	public function __construct(ComponentCollection $components, $settings = array()){
@@ -21,10 +26,36 @@ class OpComponent extends Component {
 	}
 	
 /**
+ * Initialize callback
+ */		
+	public function initialize($controller){
+		$this->loggedInUser = $this->Auth->user();
+		$this->_initializeComponent($controller, 'Op.OpAuth', array('alias' => 'Auth'));
+		$this->_initializeComponent($controller, 'Op.OpSession', array('alias' => 'Session'));
+	}
+	
+/**
  * Startup callback
  */		
 	public function startup($controller){
 		$this->loggedInUser = $this->Auth->user();
+		$this->_startupComponents($controller);
+	}
+	
+	protected function _initializeComponent($controller, $name, $options = array()){
+		if(!isset($options['alias'])){
+			$options['alias'] = $name;
+		}
+		$alias = $options['alias'];
+		unset($options['alias']);
+		$controller->$alias = $controller->Components->load($name, $options);
+		$this->autoComponents[] = $alias;
+	}
+	
+	protected function _startupComponents($controller){
+		foreach($this->autoComponents as $component){
+			$controller->$component->startup($controller);
+		}
 	}
 	
 /**

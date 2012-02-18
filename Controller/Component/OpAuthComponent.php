@@ -8,7 +8,7 @@ class OpAuthComponent extends AuthComponent {
 		'prefix' => null,
 		'admin' => false,
 		'plugin' => 'op',
-		'controller' => 'users',
+		'controller' => 'op_users',
 		'action' => 'login'
 	);
 	
@@ -16,7 +16,7 @@ class OpAuthComponent extends AuthComponent {
 		'prefix' => 'admin',
 		'admin' => true,
 		'plugin' => 'op',
-		'controller' => 'dashboard',
+		'controller' => 'op_dashboard',
 		'action' => 'index'
 	);
 	
@@ -25,7 +25,7 @@ class OpAuthComponent extends AuthComponent {
 		'prefix' => null,
 		'admin' => false,
 		'plugin' => 'op',
-		'controller' => 'users',
+		'controller' => 'op_users',
 		'action' => 'login'
 	);
 	
