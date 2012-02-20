@@ -2,4 +2,4 @@
 
 App::uses('AppController', 'Controller');
 
-class OPAppController extends AppController {}
+class OpAppController extends AppController {}

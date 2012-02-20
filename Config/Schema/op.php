@@ -28,7 +28,7 @@ class OpSchema extends CakeSchema {
 		'indexes' => array('PRIMARY' => array('column' => 'id', 'unique' => 1), 'locale' => array('column' => 'locale', 'unique' => 0), 'model' => array('column' => 'model', 'unique' => 0), 'row_id' => array('column' => 'foreign_key', 'unique' => 0), 'field' => array('column' => 'field', 'unique' => 0))
 	);
 	
-	public $users = array(
+	public $op_users = array(
 		'id' => array('type' => 'string', 'null' => false, 'key' => 'primary'),
 		'email' => array('type' => 'string', 'null' => false),
 		'passwd' => array('type' => 'string', 'null' => false, 'length' => 36),

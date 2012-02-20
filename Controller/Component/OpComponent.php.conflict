@@ -1,5 +1,8 @@
 <?php
 
+<<<<<<< HEAD
+class OpComponent extends Object {}
+=======
 class OpComponent extends Component {
 	
 	var $isAdmin = false;
@@ -83,3 +86,4 @@ class OpComponent extends Component {
 	
 	
 }
+>>>>>>> 947eced688092e62a541211c789fb62f08407ba1

@@ -1,0 +1,6 @@
+[submodule "webroot/css/bootstrap"]
+	path = webroot/css/bootstrap
+	url = git@github-objectpack:twitter/bootstrap.git
+[submodule "webroot/js/less"]
+	path = webroot/js/less
+	url = git@github-objectpack:cloudhead/less.js.git
