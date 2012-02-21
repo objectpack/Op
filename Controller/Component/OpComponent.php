@@ -49,6 +49,7 @@ class OpComponent extends Component {
 		$alias = $options['alias'];
 		unset($options['alias']);
 		$controller->$alias = $controller->Components->load($name, $options);
+		$controller->$alias->initialize($controller);
 		$this->autoComponents[] = $alias;
 	}
 	
@@ -62,6 +63,8 @@ class OpComponent extends Component {
  * Before render callback
  */	
 	public function beforeRender($controller){
+		
+		$controller->viewClass = 'Op.Op';
 		
 		// Set helpers
 		$helpersToUnset = array('Html', 'Form');

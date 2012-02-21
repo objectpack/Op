@@ -5,7 +5,14 @@ App::uses('Op.OpAppController', 'Controller');
 class OpUsersController extends OpAppController {
 	
 	public function login(){
-		
+		if ($this->request->is('post')) {
+			if ($this->Auth->login()) {
+				return $this->redirect($this->Auth->redirect());
+			}
+			else {
+				$this->Session->setFlash(__d('op', 'Username or password is incorrect'), 'default', array(), 'auth');
+			}
+    	}
 	}
 	
 	public function logout(){

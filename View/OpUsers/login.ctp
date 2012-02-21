@@ -1,3 +1,3 @@
 <div class="op users login">
-	<?php $this->partial('_form'); ?>
+	<?php echo $this->partial('form'); ?>
 </div>

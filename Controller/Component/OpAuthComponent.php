@@ -36,7 +36,7 @@ class OpAuthComponent extends AuthComponent {
 			'userModel' => 'Op.User',
 			'fields' => array(
 				'username' => 'email',
-				'password' => 'password'
+				'password' => 'passwd'
 			)
 		)
 	);
