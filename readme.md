@@ -3,6 +3,8 @@
 
 STILL IN HEAVY DEVELOPMENT
 
+Think of [Object Pack](http://objectpack.com) as all the [CakePHP](http://cakephp.org) plugins you use everyday grouped in a single consistent plugin.   
+
 <a name="table_of_contents"></a>
 ## Table of contents
 
@@ -15,7 +17,7 @@ STILL IN HEAVY DEVELOPMENT
 ## Features
 
 * Auth
-* Scaffolding
+* Enhanced Scaffolding
 * Uploads
 * I18n
 * No ACL (prefix based auth)
