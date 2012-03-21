@@ -29,7 +29,11 @@ class OpAuthComponent extends AuthComponent {
 		'action' => 'login'
 	);
 	
-	public $flash = array( 'element' => 'default', 'key' => 'auth', 'params' => array() );
+	public $flash = array(
+		'element' => 'default',
+		'key' => 'auth',
+		'params' => array()
+	);
 	
 	public $authenticate = array(
 		'Form' => array(
@@ -45,4 +49,5 @@ class OpAuthComponent extends AuthComponent {
 		$this->authError = __d('op', 'You are not allowed to access this location.');
 		parent::__construct($components, $options);
 	}
+	
 }

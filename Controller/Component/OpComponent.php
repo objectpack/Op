@@ -8,11 +8,7 @@ class OpComponent extends Component {
 	
 	var $modelNames = array();
 	
-	public $components = array(
-		'Auth' => array(
-			'className' => 'Op.OpAuth'
-		)
-	);
+	public $components = array();
 	
 /**
  * List of components the must be manually initialized
@@ -29,42 +25,58 @@ class OpComponent extends Component {
  * Initialize callback
  */		
 	public function initialize($controller){
-		$this->loggedInUser = $this->Auth->user();
 		$this->_initializeComponent($controller, 'Op.OpAuth', array('alias' => 'Auth'));
-		$this->_initializeComponent($controller, 'Op.OpSession', array('alias' => 'Session'));
+		$this->loggedInUser = $controller->Auth->user();
 	}
 	
 /**
  * Startup callback
  */		
 	public function startup($controller){
-		$this->loggedInUser = $this->Auth->user();
 		$this->_startupComponents($controller);
 	}
 	
-	protected function _initializeComponent($controller, $name, $options = array()){
+/**
+ * Adds a component to the controller if not present 
+ */
+	protected function _initializeComponent($controller, $component, $options = array()){
 		if(!isset($options['alias'])){
-			$options['alias'] = $name;
+			$options['alias'] = $component;
 		}
 		$alias = $options['alias'];
 		unset($options['alias']);
-		$controller->$alias = $controller->Components->load($name, $options);
+		$controller->$alias = $controller->Components->load($component, $options);
 		$controller->$alias->initialize($controller);
 		$this->autoComponents[] = $alias;
 	}
 	
+/**
+ * Startups all the components loaded by OpComponent::_initializeComponent()
+ */
 	protected function _startupComponents($controller){
 		foreach($this->autoComponents as $component){
 			$controller->$component->startup($controller);
 		}
 	}
 	
+	public function setFlash($message, $success = false, $options = array()){
+		if($options === true){
+			$options = array('success' => true);
+		}
+		$options = $options + array('success' => false);
+		
+	}
+	
 /**
  * Before render callback
- */	
+ */
 	public function beforeRender($controller){
 		
 		$controller->viewClass = 'Op.Op';
+		
+		if( $this->isAdmin && $this->layout == 'default' ){
+			$this->layout = 'admin';
+		}
 		
 		// Set helpers
 		$helpersToUnset = array('Html', 'Form');
@@ -83,6 +95,5 @@ class OpComponent extends Component {
 		);
 		
 	}
-	
 	
 }

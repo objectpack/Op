@@ -4,6 +4,8 @@ App::uses('Op.OpAppController', 'Controller');
 
 class OpUsersController extends OpAppController {
 	
+	public $acaffold = 'admin';
+	
 	public function login(){
 		if ($this->request->is('post')) {
 			if ($this->Auth->login()) {

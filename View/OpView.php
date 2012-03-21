@@ -4,7 +4,6 @@ App::uses('View', 'View');
 
 class OpView extends View {
 	
-	
 /**
  * Renders a partial file
  */
@@ -25,4 +24,5 @@ class OpView extends View {
 			}
 		}	
 	}
+	
 }

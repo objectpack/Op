@@ -16,13 +16,6 @@ Think of [Object Pack](http://objectpack.com) as all the [CakePHP](http://cakeph
 <a name="features"></a>
 ## Features
 
-* Auth
-* Enhanced Scaffolding
-* Uploads
-* I18n
-* No ACL (prefix based auth)
-* TwitterBootstrap
-* Less.js framework
 * Partials
 
 <a name="install"></a>
@@ -90,4 +83,20 @@ Field : order
 
 <a name="contribute"></a>
 ## How to contribute
+
+<a name="todo"></a>
+## Todo
+
+* Auth
+* Enhanced Scaffolding
+* Uploads
+* I18n
+* No ACL (prefix based auth)
+* TwitterBootstrap
+* Less.js framework
+* Less compiling
+* Import/Export
+* Select UI
+* Search
+* Filter
 
