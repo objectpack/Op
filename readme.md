@@ -17,6 +17,8 @@ Think of [Object Pack](http://objectpack.com) as all the [CakePHP](http://cakeph
 ## Features
 
 * Partials
+* File Upload
+* Prefix based auth
 
 <a name="install"></a>
 ## Install
@@ -55,17 +57,15 @@ CakePlugin::load(array(
 cake schema create Op.op
 ```
 
-### Add Op component
+### Modifiy your app controller
 
-In your /Controller/AppController.php add :
+Modifiy your app controller so it looks like :
 
 ```php
 <?php
-class AppController extends Controller {
-	public $components = array(
-		'Op.Op'
-	);
-}
+App::uses('OpBaseController', 'Op.Controller');
+
+class AppController extends OpBaseController {}
 ```
 
 <a name="conventions"></a>
@@ -87,9 +87,7 @@ Field : order
 <a name="todo"></a>
 ## Todo
 
-* Auth
 * Enhanced Scaffolding
-* Uploads
 * I18n
 * No ACL (prefix based auth)
 * TwitterBootstrap
