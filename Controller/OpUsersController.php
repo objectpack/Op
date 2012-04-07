@@ -4,7 +4,12 @@ App::uses('Op.OpAppController', 'Controller');
 
 class OpUsersController extends OpAppController {
 	
-	public $acaffold = 'admin';
+	public $scaffold = 'admin';
+	
+	public function beforeFilter() {
+		parent::beforeFilter();
+		$this->Auth->allow('register', 'logout');
+	}
 	
 	public function login(){
 		if ($this->request->is('post')) {
@@ -14,7 +19,7 @@ class OpUsersController extends OpAppController {
 			else {
 				$this->Session->setFlash(__d('op', 'Username or password is incorrect'), 'default', array(), 'auth');
 			}
-    	}
+		}
 	}
 	
 	public function logout(){
@@ -23,7 +28,7 @@ class OpUsersController extends OpAppController {
 	}
 	
 	public function register(){
-		if($this->request->is('post')) {
+		if ($this->request->is('post')) {
 			$this->User->create();
 			if ($this->User->save($this->request->data)) {
 				$this->request->data['User']['id'] = $this->User->id;
@@ -35,6 +40,14 @@ class OpUsersController extends OpAppController {
 				$this->Session->setFlash(__d('op', 'The %s could not be saved. Please, try again.', __d('op', 'User')));
 			}
 		}
+	}
+	
+	public function admin_dashboard(){
+		
+	}
+	
+	public function user_dashboard(){
+		
 	}
 	
 }

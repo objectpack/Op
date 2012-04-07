@@ -31,7 +31,7 @@ class OpSchema extends CakeSchema {
 	public $op_users = array(
 		'id' => array('type' => 'string', 'null' => false, 'key' => 'primary'),
 		'email' => array('type' => 'string', 'null' => false),
-		'passwd' => array('type' => 'string', 'null' => false, 'length' => 36),
+		'passwd' => array('type' => 'string', 'null' => false, 'length' => 40),
 		'prefix' => array('type' => 'string', 'null' => true, 'length' => 45, 'default' => 'user'),
 		'created' => array('type' => 'datetime', 'null' => true),
 		'modified' => array('type' => 'datetime', 'null' => true),

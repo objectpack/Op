@@ -9,6 +9,4 @@ class OpModelBuilderController extends OpAppController {
 	public function admin_index(){
 		
 	}
-	
-	
 }

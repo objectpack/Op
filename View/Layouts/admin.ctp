@@ -13,9 +13,9 @@ extract(array('nav' => null), EXTR_SKIP);
 
 <?php 
 echo $this->Html->css(array(
-	'bootstrap/docs/assets/css/bootstrap',
-	'layout',
-	'bootstrap/docs/assets/css/bootstrap-responsive'
+	'Op.bootstrap/docs/assets/css/bootstrap',
+	'Op.layout',
+	'Op.bootstrap/docs/assets/css/bootstrap-responsive'
 )); 
 ?>
 <!--[if lt IE 9]>
@@ -37,14 +37,21 @@ echo $this->Html->css(array(
 				<span class="icon-bar"></span>
 				<span class="icon-bar"></span>
 			</a>
-			<?php echo $this->Html->link('Local Shopping', '/', array('class' => 'brand')); ?>
+			<?php echo $this->Html->link('Admin', '/admin', array('class' => 'brand')); ?>
 			<div class="nav-collapse">
 				<ul class="nav">
-					<li class="active"><?php echo $this->Html->link('Accueil', '/'); ?></li>
-					<li><?php echo $this->Html->link('Boutiques', array('controller' => 'shops', 'action' => 'index')); ?></li>
-					<li><?php echo $this->Html->link('Produits', array('controller' => 'products', 'action' => 'index')); ?></li>
+					<li class="active"><?php echo $this->Html->link('Dashboard', array('admin' => true, 'plugin' => 'op', 'controller' => 'op_dashboard', 'action' => 'index')); ?></li>
 				</ul>
-				<p class="navbar-text pull-right">Logged in as <a href="#">username</a></p>
+				<p class="navbar-text pull-right">
+					<?php 
+					echo __d(
+						'op', 
+						'Logged in as %s, %s',
+						$this->Html->link($_user['email'], array('admin' => true, 'plugin' => 'op', 'controller' => 'op_users', 'action' => 'view', $_user['id'])),
+						$this->Html->link(__d('op', 'logout'), array('admin' => false, 'plugin' => 'op', 'controller' => 'op_users', 'action' => 'logout'))
+					);
+					?>
+				</p>
 			</div>
 		</div>
 	</div>

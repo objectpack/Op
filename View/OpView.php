@@ -23,6 +23,5 @@ class OpView extends View {
 				return $this->element($path.$el, $data, $options);
 			}
 		}	
-	}
-	
+	}	
 }

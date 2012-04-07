@@ -4,6 +4,10 @@ App::uses('AuthComponent', 'Controller/Component');
 
 class OpAuthComponent extends AuthComponent {
 	
+	public $authorize = array(
+		'Controller'
+	);
+	
 	public $loginAction = array(
 		'prefix' => null,
 		'admin' => false,
@@ -37,17 +41,17 @@ class OpAuthComponent extends AuthComponent {
 	
 	public $authenticate = array(
 		'Form' => array(
-			'userModel' => 'Op.User',
+			'userModel' => 'Op.OpUser',
 			'fields' => array(
 				'username' => 'email',
 				'password' => 'passwd'
 			)
 		)
 	);
-	
+
 	public function __construct(ComponentCollection $components, $options){
-		$this->authError = __d('op', 'You are not allowed to access this location.');
+		$this->authError = __d('op', 'You are not allowed to access this location');
 		parent::__construct($components, $options);
 	}
-	
+
 }
