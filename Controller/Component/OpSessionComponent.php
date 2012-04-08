@@ -8,7 +8,7 @@ class OpSessionComponent extends SessionComponent {
 		$options = $options + array(
 			'element' => 'default',
 			'params' => array(
-				'class' => 'success'
+				'class' => 'message success'
 			),
 			'key' => 'flash'
 		);
@@ -19,7 +19,7 @@ class OpSessionComponent extends SessionComponent {
 		$options = $options + array(
 			'element' => 'default',
 			'params' => array(
-				'class' => 'error'
+				'class' => 'message error'
 			),
 			'key' => 'flash'
 		);

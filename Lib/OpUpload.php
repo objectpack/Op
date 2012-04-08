@@ -28,7 +28,7 @@ class OpUpload extends Object {
  * 
  * @see OpUpload::treat
  */
-	static $options = array(
+	protected static $options = array(
 		'type' => 'default',
 		'extensions' => '*',
 		'mimes' => '*',
@@ -50,7 +50,7 @@ class OpUpload extends Object {
 /**
  * Predefined configurations
  */	
-	static $types = array(
+	protected static $types = array(
 		'default' => array()
 	);
 
@@ -74,9 +74,19 @@ class OpUpload extends Object {
  */
 	public static function treat($path, $options = array()) {
 		
-		$options = (array) $options + Configure::read('Op.Upload.options') + self::options;
-		$types = Configure::read('Op.Upload.types') + self::types;
-		$data = Set::extract($path, $_FILES);
+		$options = array_merge(static::$options, (array) Configure::read('Op.Upload.options'), (array) $options);
+		$types = array_merge(static::$types, (array) Configure::read('Op.Upload.types'));
+		
+		/**
+		 * @todo access cakerequest data
+		 */
+		$data = array(
+			'name' => current((array) Set::extract('/data/name/'.$path, $_FILES)),
+			'type' => current((array) Set::extract('/data/type/'.$path, $_FILES)),
+			'tmp_name' => current((array) Set::extract('/data/tmp_name/'.$path, $_FILES)),
+			'error' => current((array) Set::extract('/data/error/'.$path, $_FILES)),
+			'size' => current((array) Set::extract('/data/size/'.$path, $_FILES))
+		);
 		
 		// Upload validity
 		if (
@@ -114,7 +124,7 @@ class OpUpload extends Object {
 		// Preparation
 		$file = new File($data['tmp_name']);
 		if(isset($options['type'])){
-			if(!in_array($options['type'], $types)){
+			if(!array_key_exists($options['type'], $types)){
 				throw new Exception(__d('op', 'Undefined upload type "%s"', $options['type']));
 				return false;
 			}
@@ -123,14 +133,15 @@ class OpUpload extends Object {
 		
 		// Mime type
 		$mime = $file->mime();
-		if(!in_array($mime, $options['mimes'])){
+		if($options['mimes'] !== '*' && !in_array($mime, $options['mimes'])){
 			throw new Exception(__d('op', 'Mime type "%s" not allowed', $mime));
 			return false;
 		}
 		
 		// Extension
-		$ext = $file->ext();
-		if(!in_array(strtolower($ext), $options['extensions'])){
+		$info = pathinfo($data['name']);
+		$ext = $info['extension'];
+		if($options['extensions'] !== '*' && !in_array(strtolower($ext), $options['extensions'])){
 			throw new Exception(__d('op', 'Extension ".%s" not allowed'), $ext);
 			return false;
 		}
@@ -143,7 +154,7 @@ class OpUpload extends Object {
 		}
 		
 		// Destination directory
-		$options['folder'] = rtrim(str_replace('/', DS, $folder), DS);
+		$options['folder'] = rtrim(str_replace('/', DS, $options['folder']), DS);
 		if(!is_dir($options['folder'])){
 			if(
 				!$options['createFolder']
@@ -162,7 +173,7 @@ class OpUpload extends Object {
 		}
 		
 		// Generate name
-		$name = $file->name();
+		$name = $info['filename'];
 		if($options['name']){
 			$name = $options['name'];
 		}
@@ -185,10 +196,8 @@ class OpUpload extends Object {
 				break;
 				case 'suffix' : 
 					$name = self::findAvailableName(
-						array(
-							$name,
-							$ext
-						), 
+						$name,
+						$ext, 
 						array(
 							'folder' => $options['folder'],
 							'limit' => $options['suffixLimit'],
@@ -214,15 +223,14 @@ class OpUpload extends Object {
 	}
 
 	
-	function findAvailableName($name, $options = array()) {
+	function findAvailableName($name, $ext, $options = array()) {
 		
-		$default = array(
+		$options = array_merge(array(
 			'folder' => TMP,
 			'limit' => 1000,
 			'separator' => '-',
 			'suffix' => null
-		);
-		$options = $options + $default;
+		), $options);
 		
 		extract($options);
 		
@@ -237,26 +245,23 @@ class OpUpload extends Object {
 			return false;
 		}
 		
-		if(is_array($name)) {
-			list($_name, $ext) = $name;
-		}
-		else {
-			$ext = substr(strrchr($name, '.'), 1);
-			$_name = $ext === false ? $name : substr($name, 0, -(strlen($name)+1));
-		}
-		
+		$suffixedName = $name;
 		if($suffix){
-			$_name .= $separator.$suffix;
+			$suffixedName .= $separator.$suffix;
 		}
 		
-		$testName = $ext === false ? $_name : $_name.'.'.$ext;
-		if( !file_exists($folder . DS . $testName) ){
-			return $_name;
+		$fullName = $suffixedName;
+		if(!empty($ext)){
+			$fullName .= '.'.$ext;
+		}
+		 
+		if( !file_exists($folder . DS . $fullName) ){
+			return $suffixedName;
 		}
 		
 		$options['suffix'] += 1;
 		
-		return OpUpload::findAvailableName(array($_name, $ext), $options);
+		return OpUpload::findAvailableName($name, $ext, $options);
 		
 	}	
 }
